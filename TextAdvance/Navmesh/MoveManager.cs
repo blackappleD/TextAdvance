@@ -35,12 +35,12 @@ public unsafe class MoveManager
         if (!Player.Available) return;
         if (AgentMap.Instance()->IsFlagMarkerSet == false)
         {
-            DuoLog.Warning($"Flag is not set");
+            DuoLog.Warning("Flag is not set".Loc());
             return;
         }
         if (AgentMap.Instance()->FlagMapMarker.TerritoryId != Svc.ClientState.TerritoryType)
         {
-            DuoLog.Warning($"Flag is in different zone than current");
+            DuoLog.Warning("Flag is in different zone than current".Loc());
             return;
         }
         var m = AgentMap.Instance()->FlagMapMarker;
@@ -61,7 +61,7 @@ public unsafe class MoveManager
         }
         if (pos == null)
         {
-            DuoLog.Error($"Failed to move to flag");
+            DuoLog.Error("Failed to move to flag".Loc());
             return;
         }
         this.EnqueueMoveAndInteract(new(pos.Value, 0, true), 3f);
@@ -87,7 +87,7 @@ public unsafe class MoveManager
         }
         if (pos == null)
         {
-            DuoLog.Error($"Failed to move to 2d point");
+            DuoLog.Error("Failed to move to 2d point".Loc());
             return;
         }
         data.Position = pos.Value;
@@ -321,7 +321,7 @@ public unsafe class MoveManager
             }
             else
             {
-                DuoLog.Error($"Stuck, move manually");
+                DuoLog.Error("Stuck, move manually".Loc());
                 P.NavmeshManager.Stop();
                 return null;
             }

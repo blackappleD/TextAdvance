@@ -43,6 +43,7 @@ public class Config : IEzConfig
     public bool QTAFinderEnabledWhenTADisable = false;
     public float AutoInteractMaxRadius = 10f;
     public bool UseSprintPeloton = true;
+    public string Language = null;
 
     public bool GetEnableQuestAccept()
     {

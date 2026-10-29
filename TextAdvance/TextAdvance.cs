@@ -43,6 +43,7 @@ public unsafe class TextAdvance : IDalamudPlugin
     public void Dispose()
     {
         Svc.Commands.RemoveHandler("/at");
+        Safe(LanguageManager.Dispose);
         Safe(ExecSkipTalk.Shutdown);
         Safe(ExecPickReward.Shutdown);
         ECommonsMain.Dispose();
@@ -61,19 +62,7 @@ public unsafe class TextAdvance : IDalamudPlugin
             new EzLogout(this.Logout);
             ProperOnLogin.RegisterAvailable(this.Login);
             this.SplatoonHandler = new();
-            Svc.Commands.AddHandler("/at", new CommandInfo(this.HandleCommand)
-            {
-                ShowInHelp = true,
-                HelpMessage = """
-                toggles TextAdvance plugin.\n/at y|yes|e|enable - turns on TextAdvance.
-                /at n|no|d|disable - turns off TextAdvance.
-                /at c|config|s|settings - opens TextAdvance settings.
-                /at g - toggles visual quest target markers
-                /at mtq - move to the first available quest location, if present (requires navmesh integration to be enabled)
-                /at mtqstop - cancel all pending movement tasks
-                /at mtf - move to flag
-                """
-            });
+            LanguageManager.Init();
             if (Svc.ClientState.IsLoggedIn)
             {
                 this.LoggedIn = true;
@@ -96,6 +85,23 @@ public unsafe class TextAdvance : IDalamudPlugin
             this.NavmeshManager = new();
             SingletonServiceManager.Initialize(typeof(ServiceManager));
             EzIPC.OnSafeInvocationException += this.EzIPC_OnSafeInvocationException;
+        });
+    }
+
+    internal void RegisterCommand()
+    {
+        Svc.Commands.RemoveHandler("/at");
+        Svc.Commands.AddHandler("/at", new CommandInfo(this.HandleCommand)
+        {
+            ShowInHelp = true,
+            HelpMessage = ("toggles TextAdvance plugin.\n" +
+                "/at y|yes|e|enable - turns on TextAdvance.\n" +
+                "/at n|no|d|disable - turns off TextAdvance.\n" +
+                "/at c|config|s|settings - opens TextAdvance settings.\n" +
+                "/at g - toggles visual quest target markers\n" +
+                "/at mtq - move to the first available quest location, if present (requires navmesh integration to be enabled)\n" +
+                "/at mtqstop - cancel all pending movement tasks\n" +
+                "/at mtf - move to flag").Loc()
         });
     }
 
@@ -157,11 +163,11 @@ public unsafe class TextAdvance : IDalamudPlugin
             this.Config.QTIEnabled = !this.Config.QTIEnabled;
             if (this.Config.QTIEnabled)
             {
-                Notify.Info($"Quest target indicators enabled");
+                Notify.Info("Quest target indicators enabled".Loc());
             }
             else
             {
-                Notify.Info($"Quest target indicators disabled");
+                Notify.Info("Quest target indicators disabled".Loc());
             }
         }
         else if (arguments.EqualsIgnoreCaseAny("mtq"))
@@ -186,7 +192,7 @@ public unsafe class TextAdvance : IDalamudPlugin
             this.Enabled = arguments.EqualsIgnoreCaseAny("enable", "e", "yes", "y") || (!arguments.EqualsIgnoreCaseAny("disable", "d", "no", "n") && !this.Enabled);
             if (!C.NotifyDisableManualState)
             {
-                Svc.Toasts.ShowQuest("Auto advance " + (this.Enabled ? "globally enabled" : "disabled (except custom territories)"),
+                Svc.Toasts.ShowQuest(this.Enabled ? "Auto advance globally enabled".Loc() : "Auto advance disabled (except custom territories)".Loc(),
                     new QuestToastOptions() { PlaySound = true, DisplayCheckmark = true });
             }
         }
@@ -230,7 +236,7 @@ public unsafe class TextAdvance : IDalamudPlugin
                     this.Enabled = true;
                     if (!C.NotifyDisableOnLogin)
                     {
-                        Notify.Success("Auto text advance has been automatically enabled on this character");
+                        Notify.Success("Auto text advance has been automatically enabled on this character".Loc());
                     }
                 }
             }
