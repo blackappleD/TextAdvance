@@ -12,12 +12,12 @@ internal static class Lang
     Scaevan accessories of aiming coffer
     Scaevan accessories of healing coffer
     Scaevan accessories of casting coffer*/
-    internal static string[] CofferOfAiming = ["aiming", "유격대"];
-    internal static string[] CofferOfStriking = ["striking", "타격대"];
-    internal static string[] CofferOfHealing = ["healing", "치유사"];
-    internal static string[] CofferOfSlaying = ["slaying", "공격대"];
-    internal static string[] CofferOfCasting = ["casting", "마술사"];
-    internal static string[] CofferOfFending = ["fending", "수호자"];
-    internal static string[] CofferOfMaiming = ["maiming", "유격대"];
-    internal static string[] CofferOfScouting = ["scouting", "정찰대"];
+    internal static string[] CofferOfAiming = ["aiming", "精准", "유격대"];
+    internal static string[] CofferOfStriking = ["striking", "强攻", "타격대"];
+    internal static string[] CofferOfHealing = ["healing", "治愈", "치유사"];
+    internal static string[] CofferOfSlaying = ["slaying", "强袭", "공격대"];
+    internal static string[] CofferOfCasting = ["casting", "咏咒", "마술사"];
+    internal static string[] CofferOfFending = ["fending", "御敌", "수호자"];
+    internal static string[] CofferOfMaiming = ["maiming", "制敌", "유격대"];
+    internal static string[] CofferOfScouting = ["scouting", "游击", "정찰대"];
 }

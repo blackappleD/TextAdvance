@@ -138,9 +138,9 @@ namespace TextAdvance.Executors
                     index = i;
                     return true;
                 }
-                if (accessoryString != null && data[i].Name.ContainsAny(StringComparison.OrdinalIgnoreCase, gearString))
+                if (accessoryString != null && data[i].Name.ContainsAny(StringComparison.OrdinalIgnoreCase, accessoryString))
                 {
-                    PluginLog.Information($"Accessory string was {gearString.Print()}");
+                    PluginLog.Information($"Accessory string was {accessoryString.Print()}");
                     index = i;
                     return true;
                 }
