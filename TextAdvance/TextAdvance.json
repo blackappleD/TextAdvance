@@ -1,11 +1,11 @@
 ﻿{
-		"Author": "NightmareXIV",
+		"Author": "NightmareXIV, blackappleD",
 		"Name": "TextAdvance",
 		"InternalName": "TextAdvance",
 		"Punchline": "Quest speedrunning assistance tool. Automatically skips subtitle boxes and confirms cutscene skipping",
 		"Description": "",
 		"ApplicableVersion": "any",
-		"RepoUrl": "https://github.com/NightmareXIV/TextAdvance",
+		"RepoUrl": "https://github.com/blackappleD/TextAdvance",
 		"LoadPriority": 0,
 		"DalamudApiLevel": 15
 }
